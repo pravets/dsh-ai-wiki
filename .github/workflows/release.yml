@@ -51,7 +51,7 @@ jobs:
           npm pack --pack-destination dist --cache .npm-cache
 
       - name: Upload tarball
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dsh-ai-wiki-release
           path: dist/*.tgz
