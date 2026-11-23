@@ -5,29 +5,30 @@
 Рабочая ветка — master. CI запускается на push в master, на pull request и вручную:
 
 - test: ubuntu-latest и windows-latest, Node 22 и 24; npm ci, npm test, npm run check;
-- pack: ubuntu, Node 24; npm pack, npm publish --dry-run, artifact dsh-ai-wiki-tarball.
+- pack: ubuntu, Node 24; npm pack и artifact dsh-ai-wiki-tarball.
 
 CI-сборка не требует npm-аутентификации и не публикует пакет. Артефакт tarball скачивается из run.
 
-## Первый 0.1.0
+## Версии в npm
 
-Версия 0.1.0 опубликована вручную 2026-11-23: npm publish --access public с OTP. Пакет доступен как dsh-ai-wiki, dist-tag latest указывает на 0.1.0. Placeholder 0.0.0-stage, созданный staged publishing, остаётся служебной версией и не является latest.
+- 0.1.0 — опубликован вручную 2026-11-23 с OTP.
+- 0.1.1 — опубликован через trusted publishing (OIDC) из release.yml, с provenance.
+- latest указывает на 0.1.1.
+- 0.0.0-stage — служебный placeholder staged publishing; latest на него не указывает.
 
-## Trusted publisher для CI
+Provenance 0.1.1: https://registry.npmjs.org/-/npm/v1/attestations/dsh-ai-wiki@0.1.1
 
-Настроить один раз на npmjs.com:
+## Trusted publisher
 
-1. Открыть https://www.npmjs.com/package/dsh-ai-wiki → Settings.
-2. Найти Trusted Publisher → GitHub Actions.
-3. Заполнить: owner pravets, repository dsh-ai-wiki, workflow filename release.yml; environment пустой.
-4. Разрешить npm publish (allow publish).
-5. Подтвердить 2FA.
+Настроен и проверен на npmjs.com:
 
-Альтернатива через CLI с npm >= 11.15 и 2FA:
+- provider: GitHub Actions;
+- owner: pravets;
+- repository: dsh-ai-wiki;
+- workflow filename: release.yml;
+- allowed: npm publish.
 
-    npx -y npm@11.21.3 trust github dsh-ai-wiki --file release.yml --repo pravets/dsh-ai-wiki --allow-publish
-
-После настройки первый успешный publish через OIDC должен пройти в течение 2 дней, иначе конфигурацию нужно создать заново. Для проверки поднять версию до 0.1.1, поставить тег v0.1.1 и запустить release.yml.
+Первый успешный OIDC-publish (0.1.1) прошёл, значит конфигурация активна. NPM_TOKEN и bootstrap-workflow не нужны и удалены.
 
 ## Релиз по тегу
 
@@ -40,9 +41,16 @@ release.yml запускается на тег v* или вручную с вх�
 
 Для trusted publishing нужны npm >= 11.5.1 и Node >= 22.14.0; workflow обновляет npm до 11.15+.
 
+## Следующий релиз
+
+1. Поднять version в package.json и package-lock.json.
+2. Закоммитить и запушить master.
+3. Поставить тег vX.Y.Z и запушить его.
+4. release.yml соберёт tarball, создаст GitHub Release и опубликует версию через OIDC.
+
 ## Безопасность
 
 - В release.yml нет NPM_TOKEN: только id-token: write и OIDC.
-- Bootstrap- workflow с токеном удалён после ручной публикации 0.1.0.
+- Bootstrap-workflow с токеном удалён после ручной публикации 0.1.0.
 - OTP и токены не передаются в чат и не попадают в репозиторий.
 - tarball не содержит tests, tools, package-lock, .npm-cache.

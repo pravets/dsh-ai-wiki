@@ -116,7 +116,7 @@ Python и native-модули не нужны.
 
 ## CI и релиз
 
-CI на GitHub Actions собирает пакет на каждый push и pull request: тесты, проверка синтаксиса, tarball и артефакт сборки. Версия 0.1.0 опубликована в npm вручную; дальнейшие релизы идут отдельным workflow по тегу v* через trusted publishing (OIDC). Подробности — в docs/RELEASE.md.
+CI на GitHub Actions собирает пакет на каждый push и pull request: тесты, проверка синтаксиса, tarball и артефакт сборки. В npm опубликованы 0.1.0 (вручную) и 0.1.1 (trusted publishing, OIDC, provenance); latest — 0.1.1. Дальнейшие релизы идут по тегу v* через release.yml. Подробности — в docs/RELEASE.md.
 
 Репозиторий: https://github.com/pravets/dsh-ai-wiki. Рабочая ветка — master.
 
