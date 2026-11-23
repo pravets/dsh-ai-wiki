@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/pravets/dsh-ai-wiki/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/pravets/dsh-ai-wiki/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/dsh-ai-wiki)](https://www.npmjs.com/package/dsh-ai-wiki)
+[![Telegram](https://telegram-badge.vercel.app/api/telegram-badge?channelId=@pravets_IT)](https://t.me/+GKGRmAwghxllYzIy)
 
 Плагин DeepSeek Harness для чтения личной вики, собранной по шаблону [ai-wiki-template](https://github.com/pravets/ai-wiki-template): зоны, ACL-маркеры, frontmatter-контракт, wiki-ссылки и BM25-поиск. Плагин только читает вики; индекс живёт в кэше DSH.
 
