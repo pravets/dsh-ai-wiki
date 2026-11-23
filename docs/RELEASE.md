@@ -9,6 +9,26 @@
 
 CI-сборка не требует npm-аутентификации и не публикует пакет. Артефакт tarball скачивается из run.
 
+## Первый 0.1.0
+
+Версия 0.1.0 опубликована вручную 2026-11-23: npm publish --access public с OTP. Пакет доступен как dsh-ai-wiki, dist-tag latest указывает на 0.1.0. Placeholder 0.0.0-stage, созданный staged publishing, остаётся служебной версией и не является latest.
+
+## Trusted publisher для CI
+
+Настроить один раз на npmjs.com:
+
+1. Открыть https://www.npmjs.com/package/dsh-ai-wiki → Settings.
+2. Найти Trusted Publisher → GitHub Actions.
+3. Заполнить: owner pravets, repository dsh-ai-wiki, workflow filename release.yml; environment пустой.
+4. Разрешить npm publish (allow publish).
+5. Подтвердить 2FA.
+
+Альтернатива через CLI с npm >= 11.15 и 2FA:
+
+    npx -y npm@11.21.3 trust github dsh-ai-wiki --file release.yml --repo pravets/dsh-ai-wiki --allow-publish
+
+После настройки первый успешный publish через OIDC должен пройти в течение 2 дней, иначе конфигурацию нужно создать заново. Для проверки поднять версию до 0.1.1, поставить тег v0.1.1 и запустить release.yml.
+
 ## Релиз по тегу
 
 release.yml запускается на тег v* или вручную с входом tag. Он:
@@ -20,32 +40,9 @@ release.yml запускается на тег v* или вручную с вх�
 
 Для trusted publishing нужны npm >= 11.5.1 и Node >= 22.14.0; workflow обновляет npm до 11.15+.
 
-## Первый 0.1.0: one-time bootstrap
-
-Trusted publishing настраивается только для пакета, который уже существует в npm. Поэтому первый 0.1.0 публикуется один раз:
-
-Вариант A, через GitHub Actions:
-
-1. Создать npm automation/granular token с правом publish и bypass 2FA.
-2. Добавить его в GitHub Secrets как NPM_TOKEN (значение не коммитить).
-3. Запустить workflow Bootstrap publish вручную.
-4. Убедиться, что npm view dsh-ai-wiki version возвращает 0.1.0.
-5. Удалить bootstrap-publish.yml и секрет NPM_TOKEN.
-
-Вариант B: один раз выполнить npm login и npm publish --access public локально, с OTP.
-
-После появления пакета:
-
-1. npmjs.com → пакет dsh-ai-wiki → Settings → Trusted Publisher → GitHub Actions.
-2. Owner: pravets, repository: dsh-ai-wiki, workflow filename: release.yml.
-3. Разрешить npm publish (allowed actions).
-4. Проверить конфигурацию первым успешным publish в течение 2 дней: поднять версию до 0.1.1, поставить тег v0.1.1 и запустить release.yml.
-
-Для v0.1.0 после bootstrap release.yml увидит, что версия уже есть, пропустит публикацию и создаст GitHub Release с tarball.
-
 ## Безопасность
 
-- NPM_TOKEN живёт только до первого успешного publish; затем удаляется.
-- В release.yml токена нет: только id-token: write и OIDC.
+- В release.yml нет NPM_TOKEN: только id-token: write и OIDC.
+- Bootstrap- workflow с токеном удалён после ручной публикации 0.1.0.
 - OTP и токены не передаются в чат и не попадают в репозиторий.
 - tarball не содержит tests, tools, package-lock, .npm-cache.
