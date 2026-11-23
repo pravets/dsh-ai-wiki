@@ -53,8 +53,6 @@ jobs:
           mkdir -p dist
           npm pack --pack-destination dist --cache .npm-cache
 
-      - name: Publish dry-run
-        run: npm publish --dry-run --access public --cache .npm-cache
 
       - name: Upload tarball
         uses: actions/upload-artifact@v7
