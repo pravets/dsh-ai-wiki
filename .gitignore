@@ -1,0 +1,9 @@
+node_modules/
+.npm-cache/
+*.tgz
+*.log
+.wiki-index/
+.aiwiki-cache/
+tests/.tmp/
+tests/.tmp-*/
+coverage/

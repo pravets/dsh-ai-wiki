@@ -1,0 +1,14 @@
+# dsh-ai-wiki: read-only BM25 gateway to an ai-wiki-template vault.
+#
+# The plugin is installed once in the profile and reads the vault configured in
+# $DSH_HOME/dsh-wiki.json or <session>/.dsh-wiki.json. Vault paths may also come
+# from DSH_WIKI_ROOTS (semicolon-separated) — useful for a first run.
+#
+# Without a configured vault the aiwiki_* tools are hidden and the prompt
+# section is empty, so an unrelated project pays nothing for the plugin.
+- insert:
+    - id: dsh-ai-wiki
+      name: 'dsh-ai-wiki'
+      config:
+        vaults: !!js 'process.env.DSH_WIKI_ROOTS ? process.env.DSH_WIKI_ROOTS.split(";").map((p) => p.trim()).filter(Boolean).map((p) => ({ path: p })) : []'
+        indexDir: !!js 'process.env.DSH_WIKI_INDEX_DIR ?? undefined'

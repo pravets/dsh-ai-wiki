@@ -1,0 +1,42 @@
+name: Bootstrap publish
+
+# One-time first publish for a package that does not exist in npm yet.
+# Trusted publishing can only be configured after the package exists.
+# Add NPM_TOKEN as a repository secret, run this workflow once for 0.1.0,
+# then delete this workflow and the NPM_TOKEN secret.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      - name: npm for publish
+        run: npm install -g "npm@^11.15.0"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Syntax check
+        run: npm run check
+
+      - name: Publish first version
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

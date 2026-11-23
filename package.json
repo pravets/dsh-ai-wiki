@@ -1,0 +1,64 @@
+{
+  "name": "dsh-ai-wiki",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Read-only BM25 gateway to an ai-wiki-template vault for DeepSeek Harness",
+  "license": "MIT",
+  "author": "Iosif Pravets",
+  "homepage": "https://github.com/pravets/dsh-ai-wiki#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pravets/dsh-ai-wiki.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pravets/dsh-ai-wiki/issues"
+  },
+  "engines": {
+    "node": ">=22.13",
+    "dsh": "0.2.2-rc.5"
+  },
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "aiwiki": "bin/aiwiki.js"
+  },
+  "files": [
+    "lib",
+    "bin",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "docs"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "wiki",
+    "obsidian",
+    "bm25",
+    "fts5",
+    "markdown"
+  ],
+  "scripts": {
+    "test": "node tests/run.mjs",
+    "bench": "node tools/bench.mjs",
+    "compare": "node tools/compare-python.mjs",
+    "hash": "node tools/hash-vault.mjs",
+    "check": "node tools/check-syntax.mjs"
+  },
+  "dependencies": {
+    "yaml": "^2.8.1",
+    "snowball-stemmers-js": "^3.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
