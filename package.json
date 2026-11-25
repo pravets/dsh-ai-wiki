@@ -1,6 +1,6 @@
 {
   "name": "dsh-ai-wiki",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "Read-only BM25 gateway to an ai-wiki-template vault for DeepSeek Harness",
   "license": "MIT",
