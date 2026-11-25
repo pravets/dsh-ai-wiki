@@ -13,9 +13,11 @@ CI-сборка не требует npm-аутентификации и не п�
 
 - 0.1.0 — опубликован вручную 2026-11-23 с OTP.
 - 0.1.1 — опубликован через trusted publishing (OIDC) из release.yml, с provenance.
-- latest указывает на 0.1.1.
+- 0.1.2 — фикс объявлений параметров инструментов (канонический JSON Schema); опубликован через trusted publishing (OIDC) из release.yml, с provenance.
+- latest указывает на 0.1.2.
 - 0.0.0-stage — служебный placeholder staged publishing; latest на него не указывает.
 
+Provenance 0.1.2: https://registry.npmjs.org/-/npm/v1/attestations/dsh-ai-wiki@0.1.2
 Provenance 0.1.1: https://registry.npmjs.org/-/npm/v1/attestations/dsh-ai-wiki@0.1.1
 
 ## Trusted publisher
