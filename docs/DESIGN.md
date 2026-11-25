@@ -30,7 +30,10 @@ The index is external to the vault: indexDir/<sha256(vault path)[0:16]>.db. The 
 - lib/tokenize.mjs — tokenizer, Snowball stemmer, FTS query builder, body plain text and excerpt.
 - lib/index.mjs — SQLite FTS5 schema, incremental build, BM25 search, similar, list, links, stats.
 - lib/lint.mjs — read-only lint and baseline filtering.
-- lib/tools.mjs — six tool definitions, runtime (config/index cache), renderers, prompt and guard helpers.
+- lib/tools.mjs — six tool definitions on top of the schema compiler, runtime (config/index cache), renderers, prompt and guard helpers.
+- lib/tool-schema.mjs — compiles the flat per-property parameter map into canonical JSON Schema, mirroring dsh-tools defineTool.
+
+Tool parameters are authored flat ({ name: { type, description, required: true } }) and compiled at registration into { type: 'object', properties, required }. DSH sends a tool's parameters in the request body verbatim, so a flat map would put a property named type where a provider expects the schema keyword and a validating service would reject the whole request, not just that tool.
 
 ## Index schema
 

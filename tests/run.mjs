@@ -4,6 +4,7 @@ import './config.test.mjs';
 import './index.test.mjs';
 import './full-rebuild.test.mjs';
 import './lint.test.mjs';
+import './tool-schema.test.mjs';
 import './tools.test.mjs';
 import './plugin.test.mjs';
 import './cross-project.test.mjs';
